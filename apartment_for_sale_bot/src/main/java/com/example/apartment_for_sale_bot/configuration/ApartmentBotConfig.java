@@ -14,12 +14,13 @@ public class ApartmentBotConfig {
 
     @Bean
     public TelegramBotsApi telegramBotsApi(ApartmentBot apartmentBot) throws TelegramApiException {
-        var api = new TelegramBotsApi(DefaultBotSession.class);
+        TelegramBotsApi api = new TelegramBotsApi(DefaultBotSession.class);
         api.registerBot(apartmentBot);
         return api;
     }
     @Bean
     public TelegramService telegramService(ApartmentBot apartmentBot) {
+
         return new TelegramService(apartmentBot);
     }
 
