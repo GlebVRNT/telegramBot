@@ -1,0 +1,36 @@
+plugins {
+    id 'java'
+    id 'org.springframework.boot' version '2.1.18.RELEASE'
+    id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+}
+
+group = 'com.example'
+version = '0.0.1-SNAPSHOT'
+
+sourceCompatibility = '11'
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_11
+}
+
+repositories {
+    mavenCentral()
+    maven { url "https://jitpack.io" }
+}
+
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    implementation group: 'org.telegram', name: 'telegrambots', version: '6.5.0'
+    implementation 'mysql:mysql-connector-java:8.0.27'
+    implementation 'org.jsoup:jsoup:1.17.2'
+    implementation 'jakarta.xml.bind:jakarta.xml.bind-api:2.3.3'
+    runtimeOnly 'com.sun.xml.bind:jaxb-impl:2.3.3'
+    runtimeOnly 'com.sun.xml.bind:jaxb-core:2.3.0.1'
+    runtimeOnly 'com.sun.istack:istack-commons-runtime:3.0.10'
+    runtimeOnly 'com.sun.activation:jakarta.activation:1.2.2'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+}
+
+tasks.named('test') {
+    useJUnitPlatform()
+}
