@@ -8,12 +8,6 @@ import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMarkup;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.InlineKeyboardButton;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
-import java.io.IOException;
-import org.springframework.web.util.UriComponentsBuilder;
-import java.net.URI;
-import java.net.http.HttpClient;
-import java.net.http.HttpRequest;
-import java.net.http.HttpResponse;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -39,7 +33,13 @@ public class ApartmentBot extends TelegramLongPollingBot {
             String command = update.getMessage().getText();
 
             String apartmentsLink = "https://www.city24.ee/real-estate-search/apartments-for-sale/tallinn/price=eur-80000-110000/size=32-na/id=181-parish";
-
+            String mustamaeLink = "https://www.city24.ee/real-estate-search/apartments-for-sale/tallinn/price=eur-80000-110000/size=32-na/id=2413-city";
+            String lasnamaeLink = "https://www.city24.ee/real-estate-search/apartments-for-sale/tallinn/price=eur-80000-110000/size=32-na/id=1897-city";
+            String kopliLink = "https://www.city24.ee/real-estate-search/apartments-for-sale/tallinn/price=eur-80000-110000/size=32-na/id=3166-city";
+            String haaberstiLink = "https://www.city24.ee/real-estate-search/apartments-for-sale/tallinn/price=eur-80000-110000/size=32-na/id=540-city";
+            String kesklinnLink = "https://www.city24.ee/real-estate-search/apartments-for-sale/tallinn/price=eur-80000-110000/size=32-na/id=1240-city";
+            String nommeLink = "https://www.city24.ee/real-estate-search/apartments-for-sale/tallinn/price=eur-80000-110000/size=32-na/id=2670-city";
+            String kristiineLink = "https://www.city24.ee/real-estate-search/apartments-for-sale/tallinn/price=eur-80000-110000/size=32-na/id=1535-city";
 
             switch (command) {
                 case "/start":
@@ -48,6 +48,30 @@ public class ApartmentBot extends TelegramLongPollingBot {
                 case "/apartments":
                     sendMessageWithHtml(chatId, getHtmlLink(apartmentsLink, "Link to the all apartments"));
                     break;
+                case "/musta":
+                    sendMessageWithHtml(chatId, getHtmlLink(mustamaeLink, "Link to the Mustamäe apartments"));
+                    break;
+                case "/lasna":
+                    sendMessageWithHtml(chatId, getHtmlLink(lasnamaeLink, "Link to the Lasnamäe apartments"));
+                    break;
+                case "/kopli":
+                    sendMessageWithHtml(chatId, getHtmlLink(kopliLink, "Link to the Kopli apartments"));
+                    break;
+                case "/haabersti":
+                    sendMessageWithHtml(chatId, getHtmlLink(haaberstiLink, "Link to the Haabersti apartments"));
+                    break;
+                case "/kesklinn":
+                    sendMessageWithHtml(chatId, getHtmlLink(kesklinnLink, "Link to the Kesklinn apartments"));
+                    break;
+                case "/nomme":
+                    sendMessageWithHtml(chatId, getHtmlLink(nommeLink, "Link to the Nõmme apartments"));
+                    break;
+                case "/kristiine":
+                    sendMessageWithHtml(chatId, getHtmlLink(kristiineLink, "Link to the Kristiine apartments"));
+                    break;
+                default:
+                    sendMessageWithHtml(chatId, "Unknown Command. Use one of provided above");
+                break;
             }
 
         } else if (update.hasCallbackQuery()) {
@@ -58,14 +82,14 @@ public class ApartmentBot extends TelegramLongPollingBot {
                 String commands = "Вот список команд:\n" +
                         "/start - показать это сообщение\n" +
                         "/apartments - получить список квартир\n" +
-                        "/mustamae\n" +
-                        "/lasnamae\n" +
+                        "/musta\n" +
+                        "/lasna\n" +
                         "/kopli\n" +
                         "/haabersti\n" +
                         "/kesklinn\n" +
                         "/nomme\n" +
-                        "/kristiine\n" +
-                        "/pirita\n";
+                        "/kristiine\n";
+
                 sendMessage(chatId, commands);
             }
         }
@@ -123,7 +147,6 @@ public class ApartmentBot extends TelegramLongPollingBot {
             execute(message);
         } catch (TelegramApiException e) {
             e.printStackTrace();
-            System.out.println("Error while sending HTML message: " + e.getMessage());
         }
     }
 

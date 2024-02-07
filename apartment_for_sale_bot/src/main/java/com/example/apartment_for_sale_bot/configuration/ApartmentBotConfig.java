@@ -11,7 +11,6 @@ import org.telegram.telegrambots.updatesreceivers.DefaultBotSession;
 
 @Configuration
 public class ApartmentBotConfig {
-
     @Bean
     public TelegramBotsApi telegramBotsApi(ApartmentBot apartmentBot) throws TelegramApiException {
         TelegramBotsApi api = new TelegramBotsApi(DefaultBotSession.class);
@@ -23,5 +22,4 @@ public class ApartmentBotConfig {
 
         return new TelegramService(apartmentBot);
     }
-
 }
