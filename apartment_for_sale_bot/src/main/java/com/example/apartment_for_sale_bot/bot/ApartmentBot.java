@@ -1,8 +1,12 @@
 package com.example.apartment_for_sale_bot.bot;
 
+import com.example.apartment_for_sale_bot.ApartmentEntity.ApiResponse;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
+import org.springframework.web.client.RestTemplate;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
+//import org.telegram.telegrambots.meta.api.objects.ApiResponse;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMarkup;
@@ -16,15 +20,16 @@ public class ApartmentBot extends TelegramLongPollingBot {
     @Value("${bot.token}")
     private String botToken;
 
-    private final List<String> endpoints = List.of(
-            "https://api.city24.ee/et_EE/search/realties?address[cc]=1&address[parish][]=181&tsType=sale&unitType=Apartment&price[gte]=80000&price[lte]=110000&size[gte]=32&adReach=1&itemsPerPage=55&page=1",
-            "https://api.city24.ee/et_EE/search/realties?address[cc]=1&address[city][]=540&tsType=sale&unitType=Apartment&price[gte]=80000&price[lte]=110000&size[gte]=32&size[lte]=50&adReach=1&itemsPerPage=55&page=1&orderBy=lastAdded"
-    );
+    @Value("${api.url}")
+    private String apiUrl;
 
-    public ApartmentBot() {
+    private final RestTemplate restTemplate;
 
-        super();
+    public ApartmentBot(RestTemplate restTemplate) {
+
+        this.restTemplate = restTemplate;
     }
+
     @Override
     public void onUpdateReceived(Update update) {
 
@@ -32,7 +37,7 @@ public class ApartmentBot extends TelegramLongPollingBot {
             long chatId = update.getMessage().getChatId();
             String command = update.getMessage().getText();
 
-            String apartmentsLink = "https://www.city24.ee/real-estate-search/apartments-for-sale/tallinn/price=eur-80000-110000/size=32-na/id=181-parish";
+            //String apartmentsLink = "https://www.city24.ee/real-estate-search/apartments-for-sale/tallinn/price=eur-80000-110000/size=32-na/id=181-parish";
             String mustamaeLink = "https://www.city24.ee/real-estate-search/apartments-for-sale/tallinn/price=eur-80000-110000/size=32-na/id=2413-city";
             String lasnamaeLink = "https://www.city24.ee/real-estate-search/apartments-for-sale/tallinn/price=eur-80000-110000/size=32-na/id=1897-city";
             String kopliLink = "https://www.city24.ee/real-estate-search/apartments-for-sale/tallinn/price=eur-80000-110000/size=32-na/id=3166-city";
@@ -46,7 +51,7 @@ public class ApartmentBot extends TelegramLongPollingBot {
                     sendMenu(chatId, "Welcome! Press the button below to continue");
                     break;
                 case "/apartments":
-                    sendMessageWithHtml(chatId, getHtmlLink(apartmentsLink, "Link to the all apartments"));
+                    sendApartmentsInfo(chatId);
                     break;
                 case "/musta":
                     sendMessageWithHtml(chatId, getHtmlLink(mustamaeLink, "Link to the Mustamäe apartments"));
@@ -93,6 +98,20 @@ public class ApartmentBot extends TelegramLongPollingBot {
                 sendMessage(chatId, commands);
             }
         }
+    }
+    private void sendApartmentsInfo(Long chatId) {
+        ResponseEntity<ApiResponse[]> responseEntity = restTemplate.getForEntity(apiUrl, ApiResponse[].class);
+        ApiResponse[] responses = responseEntity.getBody();
+
+
+        StringBuilder messageText = new StringBuilder();
+        for (ApiResponse response : responses) {
+            String apartmentLink = "https://www.city24.ee/real-estate/apartments-for-sale/tallinn/" + response.getFriendlyId();
+            String apartmentInfo = "Get Published: " + response.getDatePublished();
+            messageText.append("<a href='").append(apartmentLink).append("'>").append(apartmentInfo).append("</a>\n");
+        }
+        sendMessageWithHtml(chatId, messageText.toString());
+        System.out.println("Response: " + messageText);
     }
 
     private String getHtmlLink(String url, String text) {

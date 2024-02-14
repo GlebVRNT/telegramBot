@@ -1,9 +1,7 @@
 package com.example.apartment_for_sale_bot.ApartmentEntity;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.Date;
 
 @Entity
 public class Apartment {
@@ -12,7 +10,10 @@ public class Apartment {
     private Long id;
     private String title;
     private String description;
-
+    private Date datePublished;
+    private String friendlyId;
+    @ManyToOne
+    private City city;
     public Long getId() {
         return id;
     }
@@ -35,5 +36,29 @@ public class Apartment {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public Date getDatePublished() {
+        return datePublished;
+    }
+
+    public void setDatePublished(Date datePublished) {
+        this.datePublished = datePublished;
+    }
+
+    public String getFriendlyId() {
+        return friendlyId;
+    }
+
+    public void setFriendlyId(String friendlyId) {
+        this.friendlyId = friendlyId;
+    }
+
+    public City getCity() {
+        return city;
+    }
+
+    public void setCity(City city) {
+        this.city = city;
     }
 }
