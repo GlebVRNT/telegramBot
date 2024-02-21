@@ -41,7 +41,7 @@ public class ApartmentBot extends TelegramLongPollingBot {
         if (update.hasMessage()) {
             long chatId = update.getMessage().getChatId();
             String command = update.getMessage().getText();
-            
+
             String mustamaeLink = "https://www.city24.ee/real-estate-search/apartments-for-sale/tallinn/price=eur-80000-110000/size=32-na/id=2413-city";
             String lasnamaeLink = "https://www.city24.ee/real-estate-search/apartments-for-sale/tallinn/price=eur-80000-110000/size=32-na/id=1897-city";
             String kopliLink = "https://www.city24.ee/real-estate-search/apartments-for-sale/tallinn/price=eur-80000-110000/size=32-na/id=3166-city";
