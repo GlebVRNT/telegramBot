@@ -1,6 +1,9 @@
 package com.example.apartment_for_sale_bot.ApartmentEntity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Entity
@@ -10,7 +13,8 @@ public class Apartment {
     private Long id;
     private String title;
     private String description;
-    private Date datePublished;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ssXXX")
+    private LocalDateTime datePublished;
     private String friendlyId;
     @ManyToOne
     private City city;
@@ -38,11 +42,11 @@ public class Apartment {
         this.description = description;
     }
 
-    public Date getDatePublished() {
+    public LocalDateTime getDatePublished() {
         return datePublished;
     }
 
-    public void setDatePublished(Date datePublished) {
+    public void setDatePublished(LocalDateTime datePublished) {
         this.datePublished = datePublished;
     }
 

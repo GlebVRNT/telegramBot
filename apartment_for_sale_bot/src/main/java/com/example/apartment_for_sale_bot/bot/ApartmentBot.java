@@ -12,8 +12,13 @@ import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMarkup;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.InlineKeyboardButton;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
+
+import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Component
 public class ApartmentBot extends TelegramLongPollingBot {
@@ -36,8 +41,7 @@ public class ApartmentBot extends TelegramLongPollingBot {
         if (update.hasMessage()) {
             long chatId = update.getMessage().getChatId();
             String command = update.getMessage().getText();
-
-            //String apartmentsLink = "https://www.city24.ee/real-estate-search/apartments-for-sale/tallinn/price=eur-80000-110000/size=32-na/id=181-parish";
+            
             String mustamaeLink = "https://www.city24.ee/real-estate-search/apartments-for-sale/tallinn/price=eur-80000-110000/size=32-na/id=2413-city";
             String lasnamaeLink = "https://www.city24.ee/real-estate-search/apartments-for-sale/tallinn/price=eur-80000-110000/size=32-na/id=1897-city";
             String kopliLink = "https://www.city24.ee/real-estate-search/apartments-for-sale/tallinn/price=eur-80000-110000/size=32-na/id=3166-city";
@@ -103,15 +107,32 @@ public class ApartmentBot extends TelegramLongPollingBot {
         ResponseEntity<ApiResponse[]> responseEntity = restTemplate.getForEntity(apiUrl, ApiResponse[].class);
         ApiResponse[] responses = responseEntity.getBody();
 
+        if (responses != null && responses.length > 0) {
+            List<ApiResponse> responseList = new ArrayList<>(Arrays.asList(responses));
+            responseList.removeIf(response -> response.getFriendlyId() == null);
 
-        StringBuilder messageText = new StringBuilder();
-        for (ApiResponse response : responses) {
-            String apartmentLink = "https://www.city24.ee/real-estate/apartments-for-sale/tallinn/" + response.getFriendlyId();
-            String apartmentInfo = "Get Published: " + response.getDatePublished();
-            messageText.append("<a href='").append(apartmentLink).append("'>").append(apartmentInfo).append("</a>\n");
+            responseList.sort(Comparator.comparing(ApiResponse::getDatePublished, Comparator.nullsLast(Comparator.reverseOrder())));
+
+            if (!responseList.isEmpty()) {
+                StringBuilder messageText = new StringBuilder();
+
+                for (ApiResponse response : responseList) {
+                    String  datePublished = response.getDatePublished();
+
+                    System.out.println("Response: " + response);
+
+                        String apartmentLink = "https://www.city24.ee/real-estate/apartments-for-sale/tallinn/" + response.getFriendlyId();
+                        String apartmentInfo = "Get Published: " + datePublished;
+                        messageText.append("<a href='").append(apartmentLink).append("'>").append(apartmentInfo).append("</a>\n");
+                }
+                sendMessageWithHtml(chatId, messageText.toString());
+                System.out.println("Response: " + messageText);
+            } else {
+                sendMessage(chatId, "К сожалению, данных нет.");
+            }
+        } else {
+            sendMessage(chatId, "К сожалению, данные не были получены.");
         }
-        sendMessageWithHtml(chatId, messageText.toString());
-        System.out.println("Response: " + messageText);
     }
 
     private String getHtmlLink(String url, String text) {

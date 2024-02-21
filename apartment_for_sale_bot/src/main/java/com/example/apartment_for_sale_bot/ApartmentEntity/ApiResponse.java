@@ -1,6 +1,9 @@
 package com.example.apartment_for_sale_bot.ApartmentEntity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
+
+import java.time.LocalDateTime;
 
 public class ApiResponse {
     @JsonProperty("date_published")
@@ -13,7 +16,7 @@ public class ApiResponse {
         return datePublished;
     }
 
-    public void setDatePublished(String datePublished) {
+    public void setDatePublished(String  datePublished) {
         this.datePublished = datePublished;
     }
 
@@ -31,5 +34,14 @@ public class ApiResponse {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    @Override
+    public String toString() {
+        return "ApiResponse{" +
+                "datePublished=" + datePublished +
+                ", friendlyId='" + friendlyId + '\'' +
+                ", id=" + id +
+                '}';
     }
 }

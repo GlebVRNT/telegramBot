@@ -2,9 +2,11 @@ package com.example.apartment_for_sale_bot.ApartmentEntity;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import java.util.Date;
+
 public class ApartmentData {
     @JsonProperty("date_published")
-    private String datePublished;
+    private Date datePublished;
 
     @JsonProperty("friendly_id")
     private String friendlyId;
@@ -13,11 +15,11 @@ public class ApartmentData {
     //ид района
     private Address address;
 
-    public String getDatePublished() {
+    public Date  getDatePublished() {
         return datePublished;
     }
 
-    public void setDatePublished(String datePublished) {
+    public void setDatePublished(Date  datePublished) {
         this.datePublished = datePublished;
     }
 
