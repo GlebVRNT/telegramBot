@@ -42,6 +42,8 @@ public class ApartmentBot extends TelegramLongPollingBot {
             } else if (command.equals("/apartments")) {
                 String message = apartmentService.fetchAndFormatApartmentInfo(chatId, timestamp, null, command);
                 sendMessageWithHtml(chatId, message);
+            } else if (command.equals("/custom_filters")) {
+                sendMessageWithHtml(chatId, "Please enter the min price and max price");
             } else {
                 String districtId = DistrictMapper.getDistrictId(command);
                 if (districtId != null) {
@@ -71,7 +73,8 @@ public class ApartmentBot extends TelegramLongPollingBot {
                     "/haabersti\n" +
                     "/kesklinn\n" +
                     "/nomme\n" +
-                    "/kristiine\n";
+                    "/kristiine\n" +
+                    "/custom_filters";
     }
     private String getHtmlLink(String url, String text) {
         return "<a href='" + url + "'>" + text + "</a>";
