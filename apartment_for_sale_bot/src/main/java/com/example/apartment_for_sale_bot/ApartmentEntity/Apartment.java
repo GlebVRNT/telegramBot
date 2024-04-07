@@ -1,10 +1,8 @@
 package com.example.apartment_for_sale_bot.ApartmentEntity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.Date;
 
 @Entity
 public class Apartment {

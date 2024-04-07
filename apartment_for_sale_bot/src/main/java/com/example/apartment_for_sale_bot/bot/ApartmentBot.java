@@ -1,6 +1,7 @@
 package com.example.apartment_for_sale_bot.bot;
 import com.example.apartment_for_sale_bot.api.ApiEndpointUtils;
 import com.example.apartment_for_sale_bot.service.ApartmentService;
+import com.example.apartment_for_sale_bot.service.UserInputHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -15,19 +16,19 @@ import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import java.util.ArrayList;
 import java.util.List;
 
-
-
 @Component
-public class ApartmentBot extends TelegramLongPollingBot {
+public class ApartmentBot extends TelegramLongPollingBot implements MessageSender {
     private static final Logger logger = LoggerFactory.getLogger(ApartmentBot.class);
 
     @Value("${bot.token}")
     private String botToken;
-
     private final ApartmentService apartmentService;
+    private final UserInputHandler userInputHandler;
 
-    public ApartmentBot(ApartmentService apartmentService) {
+    public ApartmentBot(ApartmentService apartmentService, UserInputHandler userInputHandler) {
         this.apartmentService = apartmentService;
+        this.userInputHandler = userInputHandler;
+        logger.info("ApartmentBot bean created");
     }
 
     @Override
@@ -38,22 +39,22 @@ public class ApartmentBot extends TelegramLongPollingBot {
             Long timestamp = ApiEndpointUtils.getTimestampMinusTwoWeeks();
 
             if (command.equals("/start")) {
-                sendMenu(chatId, "Welcome! Press the button below to continue");
+                sendMenu(chatId, "Welcome!");
             } else if (command.equals("/apartments")) {
                 String message = apartmentService.fetchAndFormatApartmentInfo(chatId, timestamp, null, command);
-                sendMessageWithHtml(chatId, message);
-            } else if (command.equals("/custom_filters")) {
-                sendMessageWithHtml(chatId, "Please enter the min price and max price");
+                sendMessage(chatId, message);
+            } else if (command.equals("/setfilters")) {
+                userInputHandler.handleStartCommand(chatId);
             } else {
                 String districtId = DistrictMapper.getDistrictId(command);
                 if (districtId != null) {
                     String message = apartmentService.fetchAndFormatApartmentInfo(chatId, timestamp, districtId, command);
-                    sendMessageWithHtml(chatId, message);
+                    System.out.println(message);
+                    sendMessage(chatId, message);
                 } else {
                     sendMessageWithHtml(chatId, "Unknown Command. Use one of provided above");
                 }
             }
-
         } else if (update.hasCallbackQuery()) {
             String callData = update.getCallbackQuery().getData();
             long chatId = update.getCallbackQuery().getMessage().getChatId();
@@ -63,6 +64,7 @@ public class ApartmentBot extends TelegramLongPollingBot {
             }
         }
     }
+
     private String generateCommandsMessage() {
             return "Command list:\n" +
                     "/start\n" +
@@ -73,22 +75,22 @@ public class ApartmentBot extends TelegramLongPollingBot {
                     "/haabersti\n" +
                     "/kesklinn\n" +
                     "/nomme\n" +
-                    "/kristiine\n" +
-                    "/custom_filters";
-    }
-    private String getHtmlLink(String url, String text) {
-        return "<a href='" + url + "'>" + text + "</a>";
+                    "/setfilters - set custom filters\n" +
+                    "/kristiine\n";
     }
 
-    private void sendMessageWithHtml(long chatId, String messageText) {
-        SendMessage message = new SendMessage();
-        message.setChatId(String.valueOf(chatId));
-        message.setText(messageText);
-        message.setParseMode(ParseMode.HTML);
-        message.enableHtml(true);
+    private void startFilterSetup(long chatId) {
+        userInputHandler.handleStartCommand(chatId);
+    }
+    private void sendMessageWithHtml(long chatId, String message) {
+        SendMessage sendMessage = new SendMessage();
+        sendMessage.setChatId(String.valueOf(chatId));
+        sendMessage.setText(message);
+        sendMessage.setParseMode(ParseMode.HTML);
+        sendMessage.enableHtml(true);
 
         try {
-            execute(message);
+            execute(sendMessage);
         } catch (TelegramApiException e) {
             e.printStackTrace();
         }
@@ -119,14 +121,12 @@ public class ApartmentBot extends TelegramLongPollingBot {
             e.printStackTrace();
         }
     }
-
-    private void sendMessage(long chatId, String messageText) {
-        SendMessage message = new SendMessage();
-        message.setChatId(String.valueOf(chatId));
-        message.setText(messageText);
-
+    public void sendMessage(long chatId, String message) {
+        SendMessage sendMessage = new SendMessage();
+        sendMessage.setChatId(String.valueOf(chatId));
+        sendMessage.setText(message);
         try {
-            execute(message);
+            execute(sendMessage);
         } catch (TelegramApiException e) {
             e.printStackTrace();
         }
@@ -134,13 +134,11 @@ public class ApartmentBot extends TelegramLongPollingBot {
 
     @Override
     public String getBotUsername() {
-
         return "apartment_for_sale_bot";
     }
 
     @Override
     public String getBotToken() {
-
         return botToken;
     }
 }

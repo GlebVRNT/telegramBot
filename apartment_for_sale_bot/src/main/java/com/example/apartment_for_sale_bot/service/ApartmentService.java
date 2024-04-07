@@ -16,6 +16,11 @@ public class ApartmentService {
     @Value("${api.url}")
     private String apiUrl;
 
+    public String getApiUrl() {
+        return apiUrl;
+    }
+
+
     public ApartmentService(RestTemplate restTemplate) {
         this.restTemplate = restTemplate;
     }
@@ -46,7 +51,7 @@ public class ApartmentService {
                     String datePublished = response.getDatePublished();
                     String apartmentLink = "https://www.city24.ee/real-estate/apartments-for-sale/tallinn/" + response.getFriendlyId();
                     String apartmentInfo = "Date Published: " + datePublished;
-                    messageText.append("<a href='").append(apartmentLink).append("'>").append(apartmentInfo).append("</a>\n");
+                    messageText.append(apartmentLink + "\n").append(apartmentInfo).append("\n");
                 }
                 return messageText.toString();
             } else {
