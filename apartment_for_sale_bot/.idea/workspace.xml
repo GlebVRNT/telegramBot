@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="3e25f6af-5c33-489d-9fa1-2d31a959b32b" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/gradlew" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/gradlew.bat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/settings.gradle" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ee/tbot/apartmentbot/ApartmentForSaleBotApplication.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ee/tbot/apartmentbot/api/ApiEndpointUtils.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ee/tbot/apartmentbot/api/UrlBuilder.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ee/tbot/apartmentbot/bot/ApartmentBot.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ee/tbot/apartmentbot/bot/DistrictMapper.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ee/tbot/apartmentbot/bot/MessageSender.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ee/tbot/apartmentbot/bot/UserState.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ee/tbot/apartmentbot/bot/UserStateStorage.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ee/tbot/apartmentbot/configuration/ApartmentApiService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ee/tbot/apartmentbot/configuration/ApartmentBotConfig.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ee/tbot/apartmentbot/entity/Address.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ee/tbot/apartmentbot/entity/Apartment.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ee/tbot/apartmentbot/entity/ApartmentData.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ee/tbot/apartmentbot/entity/ApiResponse.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ee/tbot/apartmentbot/entity/ChatSession.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ee/tbot/apartmentbot/entity/City.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ee/tbot/apartmentbot/exception/ServiceException.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ee/tbot/apartmentbot/repository/ApartmentRepo.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ee/tbot/apartmentbot/service/ApartmentService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ee/tbot/apartmentbot/service/TelegramService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ee/tbot/apartmentbot/service/UserInputHandler.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/application.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/ee/tbot/apartmentbot/ApartmentForSaleBotApplicationTests.java" beforeDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ExternalProjectsData">
+    <projectState path="$PROJECT_DIR$">
+      <ProjectState />
+    </projectState>
+  </component>
+  <component name="ExternalProjectsManager">
+    <system id="GRADLE">
+      <state>
+        <projects_view>
+          <tree_state>
+            <expand>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="apartment_for_sale_bot" type="f1a62948:ProjectNode" />
+              </path>
+            </expand>
+            <select />
+          </tree_state>
+        </projects_view>
+      </state>
+    </system>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Kotlin Enum" />
+        <option value="Enum" />
+        <option value="Interface" />
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="KubernetesApiProvider">{
+  &quot;isMigrated&quot;: true
+}</component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 4
+}</component>
+  <component name="ProjectId" id="2bS7aENPaECeCjaRhjpXOtzhOwF" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Gradle.Build apartment_for_sale_bot.executor&quot;: &quot;Run&quot;,
+    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
+    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
+    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
+    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;Spring Boot.ApartmentForSaleBotApplication.executor&quot;: &quot;Run&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/wehav/telegramBot/apartment_for_sale_bot/src/main/java/com/example/apartment_for_sale_bot&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;reference.settingsdialog.project.gradle&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  }
+}</component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/main/java/com/example/apartment_for_sale_bot" />
+    </key>
+  </component>
+  <component name="RunManager">
+    <configuration default="true" type="GroovyScriptRunConfiguration" factoryName="Groovy">
+      <setting name="path" value="" />
+      <setting name="vmparams" value="" />
+      <setting name="params" value="" />
+      <setting name="workDir" value="file://$PROJECT_DIR$" />
+      <setting name="debug" value="false" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ApartmentForSaleBotApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <module name="apartment_for_sale_bot.main" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.example.apartment_for_sale_bot.ApartmentForSaleBotApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="jdk-17.0.10-corretto-17.0.10-3183f394aec4-96c0d24d" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="3e25f6af-5c33-489d-9fa1-2d31a959b32b" name="Changes" comment="" />
+      <created>1706196690996</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1706196690996</updated>
+      <workItem from="1706196692424" duration="2382000" />
+      <workItem from="1706282851874" duration="306000" />
+      <workItem from="1706642817733" duration="3425000" />
+      <workItem from="1706715282479" duration="1849000" />
+      <workItem from="1706803803044" duration="3617000" />
+      <workItem from="1706965857592" duration="7937000" />
+      <workItem from="1706987841091" duration="4556000" />
+      <workItem from="1707060709395" duration="3331000" />
+      <workItem from="1707076670166" duration="2008000" />
+      <workItem from="1707078704788" duration="917000" />
+      <workItem from="1707151990692" duration="2092000" />
+      <workItem from="1707154105384" duration="9510000" />
+      <workItem from="1707237880283" duration="5856000" />
+      <workItem from="1707327790167" duration="8004000" />
+      <workItem from="1707414650735" duration="1506000" />
+      <workItem from="1707494091769" duration="175000" />
+      <workItem from="1707558332306" duration="5229000" />
+      <workItem from="1707754984974" duration="6275000" />
+      <workItem from="1707848526281" duration="4009000" />
+      <workItem from="1707931212110" duration="4787000" />
+      <workItem from="1708019004832" duration="4916000" />
+      <workItem from="1708281941791" duration="5192000" />
+      <workItem from="1708360473243" duration="5117000" />
+      <workItem from="1708535917259" duration="4500000" />
+      <workItem from="1708619838615" duration="5134000" />
+      <workItem from="1708707576069" duration="2691000" />
+      <workItem from="1708783847424" duration="1937000" />
+      <workItem from="1708852450978" duration="101000" />
+      <workItem from="1708965648041" duration="2166000" />
+      <workItem from="1709143633316" duration="2343000" />
+      <workItem from="1709227194386" duration="2246000" />
+      <workItem from="1709484327964" duration="4177000" />
+      <workItem from="1709572380085" duration="6802000" />
+      <workItem from="1709657336527" duration="87000" />
+      <workItem from="1709657496078" duration="4752000" />
+      <workItem from="1709709177449" duration="158000" />
+      <workItem from="1709746344681" duration="1333000" />
+      <workItem from="1709831439341" duration="5860000" />
+      <workItem from="1710180477661" duration="1616000" />
+      <workItem from="1710266120603" duration="2556000" />
+      <workItem from="1710353133575" duration="2402000" />
+      <workItem from="1710436199640" duration="3988000" />
+      <workItem from="1710697546740" duration="3833000" />
+      <workItem from="1710782409599" duration="3849000" />
+      <workItem from="1710869918352" duration="4963000" />
+      <workItem from="1710954432053" duration="2809000" />
+      <workItem from="1711041374298" duration="3124000" />
+      <workItem from="1711270533167" duration="3351000" />
+      <workItem from="1711389223886" duration="4061000" />
+      <workItem from="1711475387739" duration="1272000" />
+      <workItem from="1711561929473" duration="836000" />
+      <workItem from="1711899596313" duration="411000" />
+      <workItem from="1712075265596" duration="2358000" />
+      <workItem from="1712161737375" duration="3092000" />
+      <workItem from="1712249859638" duration="2045000" />
+      <workItem from="1712254325624" duration="2126000" />
+      <workItem from="1712487542937" duration="2423000" />
+      <workItem from="1712596013094" duration="2845000" />
+      <workItem from="1712680564867" duration="3344000" />
+      <workItem from="1712852098258" duration="2401000" />
+      <workItem from="1713022402593" duration="1867000" />
+      <workItem from="1713114265835" duration="813000" />
+      <workItem from="1713462459757" duration="846000" />
+      <workItem from="1713468963437" duration="1015000" />
+      <workItem from="1713713588063" duration="2462000" />
+      <workItem from="1713804688808" duration="2103000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+</project>
