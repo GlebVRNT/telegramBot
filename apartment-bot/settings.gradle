@@ -3,4 +3,4 @@ pluginManagement {
         id 'org.jetbrains.kotlin.jvm' version '1.9.22'
     }
 }
-rootProject.name = 'apartment_for_sale_bot'
+rootProject.name = 'apartment-bot'

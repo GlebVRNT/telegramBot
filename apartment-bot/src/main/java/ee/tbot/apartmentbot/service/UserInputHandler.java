@@ -8,18 +8,19 @@ import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 import java.util.HashMap;
 import java.util.Map;
+
 @Lazy
 @Component
 public class UserInputHandler {
     private static final Logger logger = LoggerFactory.getLogger(UserInputHandler.class);
-    private final MessageSender messageSender;
+//    private final MessageSender messageSender;//TODO: check this code
     private final ApartmentService apartmentService;
     private final Map<Long, UserState> userStates = new HashMap<>();
     private final Map<Long, Integer> userMinPrices = new HashMap<>();
     private final Map<Long, Integer> userMaxPrices = new HashMap<>();
 
-    public UserInputHandler(MessageSender messageSender, ApartmentService apartmentService) {
-        this.messageSender = messageSender;
+    public UserInputHandler( ApartmentService apartmentService) {
+//        this.messageSender = messageSender;//TODO: check this code
         this.apartmentService = apartmentService;
         logger.info("UserHandler bean created");
     }
@@ -75,7 +76,7 @@ public class UserInputHandler {
     }
 
     private void sendMessage(long chatId, String message) {
-        messageSender.sendMessage(chatId, message);
+//        messageSender.sendMessage(chatId, message); //TODO: check this code
     }
 
     private void setUserState(long chatId, UserState state) {
