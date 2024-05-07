@@ -1,9 +1,10 @@
 package ee.tbot.apartmentbot.entity;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.Data;
 
 import java.util.Date;
-
+@Data
 public class ApartmentData {
     @JsonProperty("date_published")
     private Date datePublished;
@@ -15,27 +16,4 @@ public class ApartmentData {
     //ид района
     private Address address;
 
-    public Date  getDatePublished() {
-        return datePublished;
-    }
-
-    public void setDatePublished(Date  datePublished) {
-        this.datePublished = datePublished;
-    }
-
-    public String getFriendlyId() {
-        return friendlyId;
-    }
-
-    public void setFriendlyId(String friendlyId) {
-        this.friendlyId = friendlyId;
-    }
-
-    public Address getAddress() {
-        return address;
-    }
-
-    public void setAddress(Address address) {
-        this.address = address;
-    }
 }

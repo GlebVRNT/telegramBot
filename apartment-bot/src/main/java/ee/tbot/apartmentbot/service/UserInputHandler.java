@@ -2,6 +2,7 @@ package ee.tbot.apartmentbot.service;
 
 import ee.tbot.apartmentbot.bot.MessageSender;
 import ee.tbot.apartmentbot.bot.UserState;
+import lombok.AllArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Lazy;
@@ -11,6 +12,7 @@ import java.util.Map;
 
 @Lazy
 @Component
+@AllArgsConstructor
 public class UserInputHandler {
     private static final Logger logger = LoggerFactory.getLogger(UserInputHandler.class);
 //    private final MessageSender messageSender;//TODO: check this code
@@ -19,11 +21,11 @@ public class UserInputHandler {
     private final Map<Long, Integer> userMinPrices = new HashMap<>();
     private final Map<Long, Integer> userMaxPrices = new HashMap<>();
 
-    public UserInputHandler( ApartmentService apartmentService) {
-//        this.messageSender = messageSender;//TODO: check this code
-        this.apartmentService = apartmentService;
-        logger.info("UserHandler bean created");
-    }
+//    public UserInputHandler( ApartmentService apartmentService) {
+////        this.messageSender = messageSender;//TODO: check this code
+//        this.apartmentService = apartmentService;
+//        logger.info("UserHandler bean created");
+//    }
 
     public void handleStartCommand(long chatId) {
         sendMessage(chatId, "Enter the min price of apartment:");
