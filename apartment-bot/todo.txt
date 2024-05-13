@@ -4,3 +4,12 @@ https://medium.com/@vishal.sharma./run-postgresql-and-pgadmin-using-docker-compo
 2) Run application with postgres
 
 3) Change constructors/getters/setters to lombok
+
+--------------
+TODO: 4) flyway integration (create one test table in real_estate_bot database).
+https://medium.com/hprog99/set-up-flyway-with-spring-boot-1b24b8abe56e
+
+TODO: 5) action factory pattern - final implementation (ApartmentBot)
+https://medium.com/@saidtaxmezov/design-patterns-in-java-factory-pattern-71d1459c4cfc
+
+TODO: 6) Formatting code scheme (Ctrl+Shift+L)

@@ -28,6 +28,7 @@ public class ApartmentBot extends TelegramLongPollingBot {
       String command = update.getMessage().getText();
       Long timestamp = ApiEndpointUtils.getTimestampMinusTwoWeeks();
 
+      /*TODO: refactor code and use action factory approach*/
       if (command.equals("/start")) {
         sendMenu(chatId, "Welcome!");
       } else if (command.equals("/apartments")) {
@@ -45,6 +46,7 @@ public class ApartmentBot extends TelegramLongPollingBot {
           sendMessageWithHtml(chatId, "Unknown Command. Use one of provided above");
         }
       }
+      /*----*/
     } else if (update.hasCallbackQuery()) {
       String callData = update.getCallbackQuery().getData();
       long chatId = update.getCallbackQuery().getMessage().getChatId();
