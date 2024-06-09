@@ -1,8 +1,11 @@
 package ee.tbot.apartmentbot.entity;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.util.Date;
+
 import lombok.Data;
+
 @Data
 public class ApartmentData {
     @JsonProperty("date_published")

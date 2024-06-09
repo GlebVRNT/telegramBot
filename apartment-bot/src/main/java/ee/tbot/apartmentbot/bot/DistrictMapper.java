@@ -6,6 +6,7 @@ import java.util.Map;
 public class DistrictMapper {
 
     private static final Map<String, String> districtIdMap = new HashMap<>();
+
     static {
         districtIdMap.put("/mustamae", "2413"); //mustamae
         districtIdMap.put("/lasnamae", "1897"); //lasnamae

@@ -13,10 +13,6 @@ public class ApiResponse {
 
     @Override
     public String toString() {
-        return "ApiResponse{" +
-                "datePublished=" + datePublished +
-                ", friendlyId='" + friendlyId + '\'' +
-                ", id=" + id +
-                '}';
+        return "ApiResponse{" + "datePublished=" + datePublished + ", friendlyId='" + friendlyId + '\'' + ", id=" + id + '}';
     }
 }

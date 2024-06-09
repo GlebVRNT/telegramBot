@@ -2,7 +2,6 @@
 https://medium.com/@vishal.sharma./run-postgresql-and-pgadmin-using-docker-compose-34120618bcf9
 
 2) Run application with postgres
-
 3) Change constructors/getters/setters to lombok
 
 --------------

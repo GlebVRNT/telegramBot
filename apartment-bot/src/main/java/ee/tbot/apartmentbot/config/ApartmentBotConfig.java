@@ -4,7 +4,6 @@ import ee.tbot.apartmentbot.bot.ApartmentBot;
 
 import ee.tbot.apartmentbot.factory.CommandFactory;
 import ee.tbot.apartmentbot.service.ApartmentService;
-import ee.tbot.apartmentbot.service.TelegramService;
 import ee.tbot.apartmentbot.service.UserInputHandler;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -39,7 +38,7 @@ public class ApartmentBotConfig {
     }
 
     @Bean
-    public CommandFactory commandFactory(@Lazy ApartmentBot apartmentBot) {
-        return new CommandFactory(apartmentBot);
+    public CommandFactory commandFactory(@Lazy ApartmentBot apartmentBot, ApartmentService apartmentService) {
+        return new CommandFactory(apartmentBot, apartmentService);
     }
 }

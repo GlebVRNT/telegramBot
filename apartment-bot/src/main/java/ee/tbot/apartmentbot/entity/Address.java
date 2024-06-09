@@ -5,7 +5,7 @@ import lombok.Data;
 @Data
 public class Address {
 
-  private int parishId;
-  private int apartmentId;
+    private int parishId;
+    private int apartmentId;
 
 }

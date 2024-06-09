@@ -6,10 +6,12 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
+
 @Service
 public class ApartmentService {
     private final RestTemplate restTemplate;
@@ -32,7 +34,7 @@ public class ApartmentService {
         if (districtId != null) {
             String districtCode = DistrictMapper.getDistrictId(command);
             apiUrlWithDistrict = apiUrlWithTimestamp.replace("address[parish][]=181", "address[city][]=" + districtCode);
-        } else  {
+        } else {
             apiUrlWithDistrict = apiUrlWithTimestamp;
         }
 

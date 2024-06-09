@@ -7,6 +7,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -15,7 +16,7 @@ import java.util.Map;
 @AllArgsConstructor
 public class UserInputHandler {
     private static final Logger logger = LoggerFactory.getLogger(UserInputHandler.class);
-//    private final MessageSender messageSender;//TODO: check this code
+    //    private final MessageSender messageSender;//TODO: check this code
     private final ApartmentService apartmentService;
     private final Map<Long, UserState> userStates = new HashMap<>();
     private final Map<Long, Integer> userMinPrices = new HashMap<>();
