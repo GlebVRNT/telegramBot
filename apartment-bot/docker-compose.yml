@@ -5,7 +5,7 @@ services:
     container_name: postgres
     restart: always
     environment:
-      POSTGRES_USER: GLEB
+      POSTGRES_USER: gleb
       POSTGRES_PASSWORD: Password123#@!
       POSTGRES_DB: real_estate_bot
     ports:

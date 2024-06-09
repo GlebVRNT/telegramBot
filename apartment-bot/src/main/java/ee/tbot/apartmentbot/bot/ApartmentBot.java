@@ -1,6 +1,8 @@
 package ee.tbot.apartmentbot.bot;
 
 import ee.tbot.apartmentbot.api.ApiEndpointUtils;
+import ee.tbot.apartmentbot.factory.CommandFactory;
+import ee.tbot.apartmentbot.factory.StartAction;
 import ee.tbot.apartmentbot.service.ApartmentService;
 import ee.tbot.apartmentbot.service.UserInputHandler;
 import java.util.ArrayList;
@@ -20,6 +22,7 @@ public class ApartmentBot extends TelegramLongPollingBot {
   private final String botToken;
   private final ApartmentService apartmentService;
   private final UserInputHandler userInputHandler;
+  private final CommandFactory commandFactory;
 
   @Override
   public void onUpdateReceived(Update update) {
@@ -29,13 +32,17 @@ public class ApartmentBot extends TelegramLongPollingBot {
       Long timestamp = ApiEndpointUtils.getTimestampMinusTwoWeeks();
 
       /*TODO: refactor code and use action factory approach*/
-      if (command.equals("/start")) {
-        sendMenu(chatId, "Welcome!");
-      } else if (command.equals("/apartments")) {
-        String message = apartmentService.fetchAndFormatApartmentInfo(chatId, timestamp, null, command);
-        sendMessage(chatId, message);
-      } else if (command.equals("/setfilters")) {
-        userInputHandler.handleStartCommand(chatId);
+      StartAction handler = commandFactory.getStartAction(command);
+      if (handler != null) {
+        handler.execute(chatId, command);
+      
+//      if (command.equals("/start")) {
+//        sendMenu(chatId, "Welcome!");
+//      } else if (command.equals("/apartments")) {
+//        String message = apartmentService.fetchAndFormatApartmentInfo(chatId, timestamp, null, command);
+//        sendMessage(chatId, message);
+//      } else if (command.equals("/setfilters")) {
+//        userInputHandler.handleStartCommand(chatId);
       } else {
         String districtId = DistrictMapper.getDistrictId(command);
         if (districtId != null) {
@@ -59,16 +66,16 @@ public class ApartmentBot extends TelegramLongPollingBot {
 
   private String generateCommandsMessage() {
     return "Command list:\n" +
-        "/start\n" +
-        "/apartments - List of 10 newest apartments\n" +
-        "/mustamae\n" +
-        "/lasnamae\n" +
-        "/kopli\n" +
-        "/haabersti\n" +
-        "/kesklinn\n" +
-        "/nomme\n" +
-        "/setfilters - set custom filters\n" +
-        "/kristiine\n";
+            "/start\n" +
+            "/apartments - List of 10 newest apartments\n" +
+            "/mustamae\n" +
+            "/lasnamae\n" +
+            "/kopli\n" +
+            "/haabersti\n" +
+            "/kesklinn\n" +
+            "/nomme\n" +
+            "/setfilters - set custom filters\n" +
+            "/kristiine\n";
   }
 
   private void startFilterSetup(long chatId) {
@@ -89,7 +96,7 @@ public class ApartmentBot extends TelegramLongPollingBot {
     }
   }
 
-  private void sendMenu(long chatId, String messageText) {
+  public void sendMenu(long chatId, String messageText) {
     SendMessage message = new SendMessage();
     message.setChatId(String.valueOf(chatId));
     message.setText(messageText);
