@@ -1,16 +1,15 @@
 package ee.tbot.apartmentbot.service;
 
+import ee.tbot.apartmentbot.bot.District;
 import ee.tbot.apartmentbot.entity.ApiResponse;
-import ee.tbot.apartmentbot.bot.DistrictMapper;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestTemplate;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
 @Service
 public class ApartmentService {
@@ -27,13 +26,12 @@ public class ApartmentService {
         this.restTemplate = restTemplate;
     }
 
-    public String fetchAndFormatApartmentInfo(Long chatId, Long timestamp, String districtId, String command) {
+    public String fetchAndFormatApartmentInfo(Long timestamp, District district) {
         String apiUrlWithTimestamp = apiUrl.replace("{timestamp}", timestamp.toString());
         String apiUrlWithDistrict;
 
-        if (districtId != null) {
-            String districtCode = DistrictMapper.getDistrictId(command);
-            apiUrlWithDistrict = apiUrlWithTimestamp.replace("address[parish][]=181", "address[city][]=" + districtCode);
+        if (district != null) {
+            apiUrlWithDistrict = apiUrlWithTimestamp.replace("address[parish][]=181", "address[city][]=" + district.getCode());
         } else {
             apiUrlWithDistrict = apiUrlWithTimestamp;
         }

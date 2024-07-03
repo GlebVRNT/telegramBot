@@ -1,7 +1,6 @@
 package ee.tbot.apartmentbot.config;
 
 import ee.tbot.apartmentbot.bot.ApartmentBot;
-
 import ee.tbot.apartmentbot.factory.CommandFactory;
 import ee.tbot.apartmentbot.service.ApartmentService;
 import ee.tbot.apartmentbot.service.UserInputHandler;
@@ -9,7 +8,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Lazy;
 import org.springframework.web.client.RestTemplate;
 import org.telegram.telegrambots.meta.TelegramBotsApi;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
@@ -27,7 +25,7 @@ public class ApartmentBotConfig {
 
     @Bean
     public ApartmentBot apartmentBot(@Value("${bot.token}") String token, ApartmentService apartmentService, UserInputHandler userInputHandler, CommandFactory commandFactory) {
-        final ApartmentBot apartmentBot = new ApartmentBot(token, apartmentService, userInputHandler, commandFactory);
+        final ApartmentBot apartmentBot = new ApartmentBot(token, /*apartmentService,*/ userInputHandler, commandFactory);
         log.info("ApartmentBot bean is created");
         return apartmentBot;
     }
@@ -38,7 +36,7 @@ public class ApartmentBotConfig {
     }
 
     @Bean
-    public CommandFactory commandFactory(@Lazy ApartmentBot apartmentBot, ApartmentService apartmentService) {
-        return new CommandFactory(apartmentBot, apartmentService);
+    public CommandFactory commandFactory(ApartmentService apartmentService) {
+        return new CommandFactory(apartmentService);
     }
 }
