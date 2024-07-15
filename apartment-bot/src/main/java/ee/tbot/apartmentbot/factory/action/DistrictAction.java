@@ -11,7 +11,6 @@ import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 public class DistrictAction implements Action {
 
   private final ApartmentService apartmentService;
-//  private final ApartmentBot apartmentBot;
   private final District district;
 
   @Override

@@ -12,3 +12,15 @@ TODO: 5) action factory pattern - final implementation (ApartmentBot)
 https://medium.com/@saidtaxmezov/design-patterns-in-java-factory-pattern-71d1459c4cfc
 
 TODO: 6) Formatting code scheme (Ctrl+Shift+L)
+
+
+1)Merge - Это слияние моего кода с кодом в гите?(процесс подтягивания проекта)
+2)Для чего нужен класс конфигурации?
+3)В какой последовательности Spring начинает выполнять код(вопрос к циклической зависимости)
+4) Почему в ApartmentsAction мы используем класс SendMessage?(Не совсем понимаю, куда мы проваливаемся, если нажать комманд+Ф(Тот же класс используем в DistrictAction,NoAction,StartAction))
+5)Для чего мы сделали Энум?
+6)actions.getOrDefault(command, new NoAction()); - что за метод?(CommandFactory)
+7)District(String command, String code) {
+      this.command = command;
+      this.code = code;
+    } - что это?

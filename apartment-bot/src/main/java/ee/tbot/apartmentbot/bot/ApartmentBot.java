@@ -3,21 +3,16 @@ package ee.tbot.apartmentbot.bot;
 import ee.tbot.apartmentbot.factory.CommandFactory;
 import ee.tbot.apartmentbot.factory.MessageBuilder;
 import ee.tbot.apartmentbot.service.UserInputHandler;
-import java.util.ArrayList;
-import java.util.List;
 import lombok.AllArgsConstructor;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Update;
-import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMarkup;
-import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.InlineKeyboardButton;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
 @AllArgsConstructor
 public class ApartmentBot extends TelegramLongPollingBot {
 
     private final String botToken;
-//    private final ApartmentService apartmentService;
     private final UserInputHandler userInputHandler;
     private final CommandFactory commandFactory;
 
@@ -38,9 +33,9 @@ public class ApartmentBot extends TelegramLongPollingBot {
         }
     }
 
-    private void startFilterSetup(long chatId) {
-        userInputHandler.handleStartCommand(chatId);
-    }
+//    private void startFilterSetup(long chatId) {
+//        userInputHandler.handleStartCommand(chatId);
+//    }
 
     private void sendMessage(SendMessage message) {
         try {

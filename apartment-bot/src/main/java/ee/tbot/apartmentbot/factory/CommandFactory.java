@@ -1,6 +1,5 @@
 package ee.tbot.apartmentbot.factory;
 
-import ee.tbot.apartmentbot.bot.ApartmentBot;
 import ee.tbot.apartmentbot.bot.District;
 import ee.tbot.apartmentbot.factory.action.Action;
 import ee.tbot.apartmentbot.factory.action.ApartmentsAction;

@@ -1,7 +1,6 @@
 package ee.tbot.apartmentbot.factory.action;
 
 import ee.tbot.apartmentbot.api.ApiEndpointUtils;
-import ee.tbot.apartmentbot.bot.ApartmentBot;
 import ee.tbot.apartmentbot.factory.MessageBuilder;
 import ee.tbot.apartmentbot.service.ApartmentService;
 import lombok.AllArgsConstructor;

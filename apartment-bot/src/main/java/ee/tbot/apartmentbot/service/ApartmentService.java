@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
+
+import lombok.Getter;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -15,12 +17,9 @@ import org.springframework.web.client.RestTemplate;
 public class ApartmentService {
     private final RestTemplate restTemplate;
 
+    @Getter
     @Value("${api.url}")
     private String apiUrl;
-
-    public String getApiUrl() {
-        return apiUrl;
-    }
 
     public ApartmentService(RestTemplate restTemplate) {
         this.restTemplate = restTemplate;
