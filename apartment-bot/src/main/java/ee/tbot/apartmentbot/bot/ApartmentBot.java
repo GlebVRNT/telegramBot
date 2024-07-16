@@ -24,13 +24,19 @@ public class ApartmentBot extends TelegramLongPollingBot {
           final SendMessage message = commandFactory.getAction(text).getMessage(chatId);
           sendMessage(message);
         } else if (update.hasCallbackQuery()) {
-            String callData = update.getCallbackQuery().getData();
-            long chatId = update.getCallbackQuery().getMessage().getChatId();
-            if (callData.equals("show_commands")) {
-              final SendMessage message = MessageBuilder.generateShowCommandMessage(chatId);
-              sendMessage(message);
+            if (shouldShowCommandList(update)) {
+                sendCommandList(update.getCallbackQuery().getMessage().getChatId());
             }
         }
+    }
+
+    private void sendCommandList(Long chatId) {
+        final SendMessage message = MessageBuilder.generateShowCommandMessage(chatId);
+        sendMessage(message);
+    }
+
+    private static boolean shouldShowCommandList(Update update) {
+        return update.getCallbackQuery().getData().equals("show_commands");
     }
 
 //    private void startFilterSetup(long chatId) {
