@@ -17,15 +17,15 @@ public class MessageBuilder {
 
   private static String commandText() {
     return "Command list:\n" +
-        "/start\n" +
-        "/apartments - List of 10 newest apartments\n" +
-        "/mustamae\n" +
-        "/lasnamae\n" +
-        "/kopli\n" +
-        "/haabersti\n" +
-        "/kesklinn\n" +
-        "/nomme\n" +
-        "/setfilters - set custom filters\n" +
-        "/kristiine\n";
+            "/start\n" +
+            "/setfilters\n" +
+            "/apartments - List of 10 newest apartments\n" +
+            "/mustamae\n" +
+            "/lasnamae\n" +
+            "/kopli\n" +
+            "/haabersti\n" +
+            "/kesklinn\n" +
+            "/nomme\n" +
+            "/kristiine\n";
   }
 }

@@ -1,12 +1,9 @@
 package ee.tbot.apartmentbot.factory;
 
 import ee.tbot.apartmentbot.bot.District;
-import ee.tbot.apartmentbot.factory.action.Action;
-import ee.tbot.apartmentbot.factory.action.ApartmentsAction;
-import ee.tbot.apartmentbot.factory.action.DistrictAction;
-import ee.tbot.apartmentbot.factory.action.NoAction;
-import ee.tbot.apartmentbot.factory.action.StartAction;
+import ee.tbot.apartmentbot.factory.action.*;
 import ee.tbot.apartmentbot.service.ApartmentService;
+import ee.tbot.apartmentbot.service.UserInputHandler;
 import lombok.AllArgsConstructor;
 
 import java.util.HashMap;
@@ -16,9 +13,10 @@ import java.util.Map;
 public class CommandFactory {
     private final Map<String, Action> actions = new HashMap<>();
 
-    public CommandFactory( ApartmentService apartmentService) {
+    public CommandFactory( ApartmentService apartmentService, UserInputHandler userInputHandler) {
         //Handler actions
-        actions.put("/start", new StartAction());
+        actions.put("/start", new StartAction(userInputHandler));
+        actions.put("/setfilters", new SetFiltersActions(userInputHandler));
 
         //Search actions
         actions.put("/apartments", new ApartmentsAction(apartmentService));

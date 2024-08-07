@@ -1,92 +1,84 @@
 package ee.tbot.apartmentbot.service;
 
-import ee.tbot.apartmentbot.bot.MessageSender;
-import ee.tbot.apartmentbot.bot.UserState;
+import ee.tbot.apartmentbot.entity.UserFilters;
 import lombok.AllArgsConstructor;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.context.annotation.Lazy;
+import org.jvnet.hk2.annotations.Service;
 import org.springframework.stereotype.Component;
+import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 
 import java.util.HashMap;
 import java.util.Map;
-
-@Lazy
-@Component
 @AllArgsConstructor
+@Component
 public class UserInputHandler {
-    private static final Logger logger = LoggerFactory.getLogger(UserInputHandler.class);
-    //    private final MessageSender messageSender;//TODO: check this code
-    private final ApartmentService apartmentService;
-    private final Map<Long, UserState> userStates = new HashMap<>();
-    private final Map<Long, Integer> userMinPrices = new HashMap<>();
-    private final Map<Long, Integer> userMaxPrices = new HashMap<>();
+    private final Map<Long, UserFilters> userFiltersMap = new HashMap<>();
+    private final Map<Long, String> userStateMap = new HashMap<>();
 
-//    public UserInputHandler( ApartmentService apartmentService) {
-////        this.messageSender = messageSender;//TODO: check this code
-//        this.apartmentService = apartmentService;
-//        logger.info("UserHandler bean created");
-//    }
-
-    public void handleStartCommand(long chatId) {
-        sendMessage(chatId, "Enter the min price of apartment:");
-        setUserState(chatId, UserState.AWAITING_MIN_PRICE);
+    private SendMessage createSendMessage(long chatId, String text) {
+        SendMessage message = new SendMessage();
+        message.setChatId(String.valueOf(chatId));
+        message.setText(text);
+        return message;
     }
 
-    public void handleUserInput(long chatId, String input) {
-        UserState state = getUserState(chatId);
-        switch (state) {
-            case AWAITING_MIN_PRICE:
-                handleMinPriceInput(chatId, input);
-                break;
-            case AWAITING_MAX_PRICE:
-                handleMaxPriceInput(chatId, input);
-                break;
-            default:
-                sendMessage(chatId, "I didn't understand that. Please use one of the commands.");
-        }
+    public SendMessage startFilterSetup(long chatId) {
+        userStateMap.put(chatId, "ASK_MIN_AREA");
+        return createSendMessage(chatId, "Enter the min area of the apartment");
     }
 
-    private void handleMinPriceInput(long chatId, String input) {
+    public SendMessage handleUserInput(long chatId, String input) {
+        String state = userStateMap.get(chatId);
+        UserFilters filters = userFiltersMap.computeIfAbsent(chatId, k -> new UserFilters());
+        SendMessage responseMessage = createSendMessage(chatId, "Filters Updated");
+
         try {
-            int minPrice = Integer.parseInt(input);
-            userMinPrices.put(chatId, minPrice);
-            sendMessage(chatId, "Enter the max price:");
-            setUserState(chatId, UserState.AWAITING_MAX_PRICE);
-        } catch (NumberFormatException e) {
-            sendMessage(chatId, "Invalid input. Please enter a valid input");
-        }
-    }
-
-    public void handleMaxPriceInput(long chatId, String input) {
-        try {
-            int maxPrice = Integer.parseInt(input);
-            int minPrice = userMinPrices.get(chatId);
-            if (maxPrice < minPrice) {
-                sendMessage(chatId, "Maximum price cannot be less than minimum price");
-                return;
+            switch (state) {
+                case "ASK_MIN_AREA":
+                    filters.setMinArea(Integer.parseInt(input));
+                    userStateMap.put(chatId, "ASK_MAX_AREA");
+                    responseMessage = createSendMessage(chatId, "Enter the max area of the apartment");
+                    break;
+                case "ASK_MAX_AREA":
+                    int maxArea = Integer.parseInt(input);
+                    if (maxArea <= filters.getMinArea()) {
+                        responseMessage = createSendMessage(chatId, "Max area must be greater than min area. Enter the max area of the apartment:");
+                    } else {
+                        filters.setMaxArea(maxArea);
+                        userStateMap.put(chatId, "ASK_MIN_PRICE");
+                        responseMessage = createSendMessage(chatId, "Enter the min price of the apartment");
+                    }
+                    break;
+                case "ASK_MIN_PRICE":
+                    filters.setMinPrice(Integer.parseInt(input));
+                    userStateMap.put(chatId, "ASK_MAX_PRICE");
+                    responseMessage = createSendMessage(chatId, "Enter the max price of the apartment");
+                    break;
+                case "ASK_MAX_PRICE":
+                    int maxPrice = Integer.parseInt(input);
+                    if (maxPrice <= filters.getMinPrice()) {
+                        responseMessage = createSendMessage(chatId, "Max price must be greater than min price. Enter the max price of the apartment:");
+                    }
+                    break;
+                default:
+                    responseMessage = createSendMessage(chatId, "Invalid input");
+                    break;
             }
-            userMaxPrices.put(chatId, maxPrice);
-            String apiUrl = apartmentService.getApiUrl()
-                    .replace("{minPrice}", String.valueOf(userMinPrices.get(chatId)))
-                    .replace("{maxPrice}", String.valueOf(maxPrice));
-            //String message = apartmentService.fetchAndFormatApartmentInfo(chatId, apiUrl);
-            //sendMessage(chatId, message);
-            setUserState(chatId, UserState.IDLE);
         } catch (NumberFormatException e) {
-            sendMessage(chatId, "Invalid input. Please enter a valid number.");
+            responseMessage = createSendMessage(chatId, "Please enter a valid number");
         }
+        return responseMessage;
     }
 
-    private void sendMessage(long chatId, String message) {
-//        messageSender.sendMessage(chatId, message); //TODO: check this code
+    public SendMessage resetFilters(long chatId) {
+        userFiltersMap.remove(chatId);
+        return startFilterSetup(chatId);
     }
 
-    private void setUserState(long chatId, UserState state) {
-        userStates.put(chatId, state);
+    public UserFilters getUserFilters(long chatId) {
+        return userFiltersMap.getOrDefault(chatId, new UserFilters());
     }
 
-    private UserState getUserState(long chatId) {
-        return userStates.getOrDefault(chatId, UserState.IDLE);
+    public String getUserState(long chatId) {
+        return userStateMap.get(chatId);
     }
 }

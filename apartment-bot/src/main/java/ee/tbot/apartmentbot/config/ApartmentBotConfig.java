@@ -24,8 +24,8 @@ public class ApartmentBotConfig {
     }
 
     @Bean
-    public ApartmentBot apartmentBot(@Value("${bot.token}") String token, ApartmentService apartmentService, UserInputHandler userInputHandler, CommandFactory commandFactory) {
-        final ApartmentBot apartmentBot = new ApartmentBot(token, /*apartmentService,*/ userInputHandler, commandFactory);
+    public ApartmentBot apartmentBot(@Value("${bot.token}") String token, ApartmentService apartmentService, CommandFactory commandFactory, UserInputHandler userInputHandler) {
+        final ApartmentBot apartmentBot = new ApartmentBot(token, /*apartmentService,*/ commandFactory, userInputHandler);
         log.info("ApartmentBot bean is created");
         return apartmentBot;
     }
@@ -36,7 +36,7 @@ public class ApartmentBotConfig {
     }
 
     @Bean
-    public CommandFactory commandFactory(ApartmentService apartmentService) {
-        return new CommandFactory(apartmentService);
+    public CommandFactory commandFactory(ApartmentService apartmentService, UserInputHandler userInputHandler) {
+        return new CommandFactory(apartmentService, userInputHandler);
     }
 }
