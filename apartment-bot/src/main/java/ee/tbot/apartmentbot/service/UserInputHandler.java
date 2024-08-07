@@ -2,7 +2,6 @@ package ee.tbot.apartmentbot.service;
 
 import ee.tbot.apartmentbot.entity.UserFilters;
 import lombok.AllArgsConstructor;
-import org.jvnet.hk2.annotations.Service;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 
