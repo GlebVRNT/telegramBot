@@ -22,13 +22,13 @@ public class CommandFactory {
         actions.put("/apartments", new ApartmentsAction(apartmentService));
 
         //District actions
-        actions.put(District.MUSTAMAE.getCommand(), new DistrictAction(apartmentService, District.MUSTAMAE));
-        actions.put(District.LASNAMAE.getCommand(), new DistrictAction(apartmentService, District.LASNAMAE));
-        actions.put(District.KOPLI.getCommand(), new DistrictAction(apartmentService, District.KOPLI));
-        actions.put(District.HAABERSTI.getCommand(), new DistrictAction(apartmentService, District.HAABERSTI));
-        actions.put(District.KESKLINN.getCommand(), new DistrictAction(apartmentService, District.KESKLINN));
-        actions.put(District.NOMME.getCommand(), new DistrictAction(apartmentService, District.NOMME));
-        actions.put(District.KRISTIINE.getCommand(), new DistrictAction(apartmentService, District.KRISTIINE));
+        actions.put(District.MUSTAMAE.getCommand(), new DistrictAction(apartmentService, District.MUSTAMAE, userInputHandler));
+        actions.put(District.LASNAMAE.getCommand(), new DistrictAction(apartmentService, District.LASNAMAE, userInputHandler));
+        actions.put(District.KOPLI.getCommand(), new DistrictAction(apartmentService, District.KOPLI, userInputHandler));
+        actions.put(District.HAABERSTI.getCommand(), new DistrictAction(apartmentService, District.HAABERSTI, userInputHandler));
+        actions.put(District.KESKLINN.getCommand(), new DistrictAction(apartmentService, District.KESKLINN, userInputHandler));
+        actions.put(District.NOMME.getCommand(), new DistrictAction(apartmentService, District.NOMME, userInputHandler));
+        actions.put(District.KRISTIINE.getCommand(), new DistrictAction(apartmentService, District.KRISTIINE, userInputHandler));
     }
 
     public Action getAction(String command) {

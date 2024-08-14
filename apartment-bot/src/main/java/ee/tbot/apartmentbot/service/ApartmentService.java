@@ -7,6 +7,7 @@ import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
 
+import ee.tbot.apartmentbot.entity.UserFilters;
 import lombok.Getter;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
@@ -25,7 +26,12 @@ public class ApartmentService {
         this.restTemplate = restTemplate;
     }
 
+    //if no filters
     public String fetchAndFormatApartmentInfo(Long timestamp, District district) {
+        return fetchAndFormatApartmentInfoWithFilters(timestamp, district, null);
+    }
+    //if with filters
+    public String fetchAndFormatApartmentInfoWithFilters(Long timestamp, District district, UserFilters userFilters) {
         String apiUrlWithTimestamp = apiUrl.replace("{timestamp}", timestamp.toString());
         String apiUrlWithDistrict;
 
@@ -33,6 +39,21 @@ public class ApartmentService {
             apiUrlWithDistrict = apiUrlWithTimestamp.replace("address[parish][]=181", "address[city][]=" + district.getCode());
         } else {
             apiUrlWithDistrict = apiUrlWithTimestamp;
+        }
+
+        if (userFilters != null) {
+            apiUrlWithDistrict = apiUrlWithDistrict
+                    .replace("{minPrice}", String.valueOf(userFilters.getMinPrice()))
+                    .replace("{maxPrice}", String.valueOf(userFilters.getMaxPrice()))
+                    .replace("{minArea}", String.valueOf(userFilters.getMinArea()))
+                    .replace("{maxArea}", String.valueOf(userFilters.getMaxArea()));
+
+        } else {
+            apiUrlWithDistrict = apiUrlWithDistrict
+                    .replace("{minPrice}", "80000")
+                    .replace("{maxPrice}", "120000")
+                    .replace("{minArea}", "32")
+                    .replace("{maxArea}", "64");
         }
 
         ResponseEntity<ApiResponse[]> responseEntity = restTemplate.getForEntity(apiUrlWithDistrict, ApiResponse[].class);
