@@ -13,7 +13,7 @@ import java.util.Map;
 public class CommandFactory {
     private final Map<String, Action> actions = new HashMap<>();
 
-    public CommandFactory( ApartmentService apartmentService, UserInputHandler userInputHandler) {
+    public CommandFactory(ApartmentService apartmentService, UserInputHandler userInputHandler) {
         //Handler actions
         actions.put("/start", new StartAction(userInputHandler));
         actions.put("/setfilters", new SetFiltersActions(userInputHandler));

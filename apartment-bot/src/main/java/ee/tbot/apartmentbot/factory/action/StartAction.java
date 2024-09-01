@@ -17,9 +17,8 @@ public class StartAction implements Action {
 
     @Override
     public SendMessage getMessage(Long chatId) {
-        return  userInputHandler.startFilterSetup(chatId);
+        return userInputHandler.startFilterSetup(chatId);
     }
-
 
     public SendMessage sendMenu(long chatId, String messageText) {
         SendMessage message = MessageBuilder.generateMessage(chatId, messageText);
@@ -42,13 +41,6 @@ public class StartAction implements Action {
 
     public SendMessage finalizeSetup(long chatId) {
         return sendMenu(chatId, "Filters updated");
-    }
-
-    private SendMessage createSendMessage(Long chatId, String text) {
-        SendMessage message = new SendMessage();
-        message.setChatId(String.valueOf(chatId));
-        message.setText(text);
-        return message;
     }
 
 }

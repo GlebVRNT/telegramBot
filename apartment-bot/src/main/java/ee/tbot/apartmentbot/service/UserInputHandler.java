@@ -1,24 +1,22 @@
 package ee.tbot.apartmentbot.service;
 
 import ee.tbot.apartmentbot.entity.UserFilters;
+import ee.tbot.apartmentbot.factory.MessageBuilder;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 
+
 import java.util.HashMap;
 import java.util.Map;
+
+
 @AllArgsConstructor
 @Component
 public class UserInputHandler {
     private final Map<Long, UserFilters> userFiltersMap = new HashMap<>();
     private final Map<Long, String> userStateMap = new HashMap<>();
 
-    private SendMessage createSendMessage(long chatId, String text) {
-        SendMessage message = new SendMessage();
-        message.setChatId(String.valueOf(chatId));
-        message.setText(text);
-        return message;
-    }
 
     public SendMessage startFilterSetup(long chatId) {
         userStateMap.put(chatId, "ASK_MIN_AREA");
@@ -28,12 +26,13 @@ public class UserInputHandler {
     public SendMessage handleUserInput(long chatId, String input) {
         String state = userStateMap.get(chatId);
         UserFilters filters = userFiltersMap.computeIfAbsent(chatId, k -> new UserFilters());
-        SendMessage responseMessage = createSendMessage(chatId, "Filters Updated");
+        SendMessage responseMessage;
 
         try {
             switch (state) {
                 case "ASK_MIN_AREA":
                     filters.setMinArea(Integer.parseInt(input));
+                    userFiltersMap.put(chatId, filters);
                     userStateMap.put(chatId, "ASK_MAX_AREA");
                     responseMessage = createSendMessage(chatId, "Enter the max area of the apartment");
                     break;
@@ -43,12 +42,14 @@ public class UserInputHandler {
                         responseMessage = createSendMessage(chatId, "Max area must be greater than min area. Enter the max area of the apartment:");
                     } else {
                         filters.setMaxArea(maxArea);
+                        userFiltersMap.put(chatId, filters);
                         userStateMap.put(chatId, "ASK_MIN_PRICE");
                         responseMessage = createSendMessage(chatId, "Enter the min price of the apartment");
                     }
                     break;
                 case "ASK_MIN_PRICE":
                     filters.setMinPrice(Integer.parseInt(input));
+                    userFiltersMap.put(chatId, filters);
                     userStateMap.put(chatId, "ASK_MAX_PRICE");
                     responseMessage = createSendMessage(chatId, "Enter the max price of the apartment");
                     break;
@@ -56,6 +57,12 @@ public class UserInputHandler {
                     int maxPrice = Integer.parseInt(input);
                     if (maxPrice <= filters.getMinPrice()) {
                         responseMessage = createSendMessage(chatId, "Max price must be greater than min price. Enter the max price of the apartment:");
+                    } else {
+                        filters.setMaxPrice(maxPrice);
+                        userStateMap.remove(chatId);
+                        userFiltersMap.put(chatId, filters);
+                        System.out.println("User " + chatId + " has been filtered by " + filters);
+                        responseMessage = createSendMessage(chatId, "Filters have been updated.");
                     }
                     break;
                 default:
@@ -65,6 +72,7 @@ public class UserInputHandler {
         } catch (NumberFormatException e) {
             responseMessage = createSendMessage(chatId, "Please enter a valid number");
         }
+
         return responseMessage;
     }
 
@@ -77,7 +85,8 @@ public class UserInputHandler {
         return userFiltersMap.getOrDefault(chatId, new UserFilters());
     }
 
-    public String getUserState(long chatId) {
-        return userStateMap.get(chatId);
+    private SendMessage createSendMessage(long chatId, String text) {
+        return MessageBuilder.generateMessage(chatId, text);
     }
+
 }

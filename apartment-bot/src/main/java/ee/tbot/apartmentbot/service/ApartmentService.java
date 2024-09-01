@@ -2,6 +2,7 @@ package ee.tbot.apartmentbot.service;
 
 import ee.tbot.apartmentbot.bot.District;
 import ee.tbot.apartmentbot.entity.ApiResponse;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
@@ -26,10 +27,12 @@ public class ApartmentService {
         this.restTemplate = restTemplate;
     }
 
-    //if no filters
+    //if no filters command apartments
     public String fetchAndFormatApartmentInfo(Long timestamp, District district) {
         return fetchAndFormatApartmentInfoWithFilters(timestamp, district, null);
     }
+
+
     //if with filters
     public String fetchAndFormatApartmentInfoWithFilters(Long timestamp, District district, UserFilters userFilters) {
         String apiUrlWithTimestamp = apiUrl.replace("{timestamp}", timestamp.toString());
@@ -37,6 +40,7 @@ public class ApartmentService {
 
         if (district != null) {
             apiUrlWithDistrict = apiUrlWithTimestamp.replace("address[parish][]=181", "address[city][]=" + district.getCode());
+
         } else {
             apiUrlWithDistrict = apiUrlWithTimestamp;
         }
@@ -48,13 +52,15 @@ public class ApartmentService {
                     .replace("{minArea}", String.valueOf(userFilters.getMinArea()))
                     .replace("{maxArea}", String.valueOf(userFilters.getMaxArea()));
 
+
         } else {
             apiUrlWithDistrict = apiUrlWithDistrict
-                    .replace("{minPrice}", "80000")
-                    .replace("{maxPrice}", "120000")
-                    .replace("{minArea}", "32")
-                    .replace("{maxArea}", "64");
+                    .replace("{minPrice}", "50000")
+                    .replace("{maxPrice}", "300000")
+                    .replace("{minArea}", "20")
+                    .replace("{maxArea}", "200");
         }
+
 
         ResponseEntity<ApiResponse[]> responseEntity = restTemplate.getForEntity(apiUrlWithDistrict, ApiResponse[].class);
         ApiResponse[] responses = responseEntity.getBody();

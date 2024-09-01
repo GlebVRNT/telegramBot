@@ -21,24 +21,22 @@ public class ApartmentBot extends TelegramLongPollingBot {
     @Override
     public void onUpdateReceived(Update update) {
         if (update.hasMessage()) {
-          final String text = update.getMessage().getText();
-          final Long chatId = update.getMessage().getChatId();
-          final SendMessage message;
+            final String text = update.getMessage().getText();
+            final Long chatId = update.getMessage().getChatId();
+            final SendMessage message;
 
-          if (text.startsWith("/")) {
-              message = commandFactory.getAction(text).getMessage(chatId);
-              sendMessage(message);
-          } else {
-              SendMessage responseMessage = userInputHandler.handleUserInput(chatId, text);
-              //message = userInputHandler.handleUserInput(chatId, text);
-              sendMessage(responseMessage);
+            if (text.startsWith("/")) {
+                message = commandFactory.getAction(text).getMessage(chatId);
+                sendMessage(message);
+            } else {
+                SendMessage responseMessage = userInputHandler.handleUserInput(chatId, text);
+                sendMessage(responseMessage);
 
-              if (responseMessage.getText().equals("Filters Updated")) {
-                  //List<SendMessage> completionMessages = new StartAction(userInputHandler).finalizeSetup(chatId);
-                  SendMessage menuMessage = new StartAction(userInputHandler).finalizeSetup(chatId);
-                  sendMessage(menuMessage);
-              }
-          }
+                if (responseMessage.getText().equals("Filters have been updated.")) {
+                    SendMessage menuMessage = new StartAction(userInputHandler).finalizeSetup(chatId);
+                    sendMessage(menuMessage);
+                }
+            }
 
         } else if (update.hasCallbackQuery()) {
             if (shouldShowCommandList(update)) {
