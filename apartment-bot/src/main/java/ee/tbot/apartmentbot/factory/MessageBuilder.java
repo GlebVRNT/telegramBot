@@ -12,20 +12,23 @@ public class MessageBuilder {
   }
 
   public static SendMessage generateShowCommandMessage(long chatId) {
-    return generateMessage(chatId, commandText());
+    SendMessage message = generateMessage(chatId, "Choose a Command:");
+    message.setReplyMarkup(CommandKeyboardBuilder.buildCommandKeyboard());
+    return message;
+    //return generateMessage(chatId, commandText());
   }
 
-  private static String commandText() {
+  /*private static String commandText() {
     return "Command list:\n" +
-            "/start\n" +
+           "/start\n" +
             "/setfilters\n" +
             "/apartments - List of 10 newest apartments\n" +
-            "/mustamae\n" +
             "/lasnamae\n" +
             "/kopli\n" +
+            "/mustamae\n" +
             "/haabersti\n" +
             "/kesklinn\n" +
             "/nomme\n" +
             "/kristiine\n";
-  }
+  }*/
 }

@@ -40,7 +40,7 @@ public class StartAction implements Action {
     }
 
     public SendMessage finalizeSetup(long chatId) {
-        return sendMenu(chatId, "Filters updated");
+        return sendMenu(chatId, "List of districts: ");
     }
 
 }

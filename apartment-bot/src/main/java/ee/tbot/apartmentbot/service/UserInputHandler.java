@@ -61,8 +61,7 @@ public class UserInputHandler {
                         filters.setMaxPrice(maxPrice);
                         userStateMap.remove(chatId);
                         userFiltersMap.put(chatId, filters);
-                        System.out.println("User " + chatId + " has been filtered by " + filters);
-                        responseMessage = createSendMessage(chatId, "Filters have been updated.");
+                        responseMessage = createSendMessage(chatId, "Filters saved");
                     }
                     break;
                 default:
